@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<ApplicationCore.Models.MovieCardModel>  //lower-case model, tell view what data type Model-passing-parameter is expecting
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +8,11 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+//Model is the default passing parameter variable name
+@foreach(var movie in Model){
+    <h3>MovieID: @movie.Id</h3>
+    <h3>MovieTitle: @movie.Title </h3>
+    <h3>MovieUrl: @movie.PosterUrl</h3>
+
+}
