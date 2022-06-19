@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Models
 {
-    internal class GenreModel
+    public class GenreModel
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

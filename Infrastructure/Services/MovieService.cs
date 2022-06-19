@@ -39,8 +39,40 @@ namespace Infrastructure.Services
 
         public MovieDetialsModel GetMovieDetails(int id)
         {
-            var movieDetails = 
-            return movieDetails;
+            var movieDetails = _movieRepository.GetById(id);//entity type
+            var movie = new MovieDetialsModel
+            {
+                Id = movieDetails.Id,
+                Tagline = movieDetails.Tagline,
+                Title = movieDetails.Title,
+                Overview = movieDetails.Overview,
+                Budget = movieDetails.Budget,
+                PosterUrl = movieDetails.PosterUrl,
+                BackdropUrl = movieDetails.BackdropUrl,
+                ImdbUrl = movieDetails.ImdbUrl,
+                RunTime = movieDetails.RunTime,
+                TmdbUrl = movieDetails.TmdbUrl,
+                Revenue = movieDetails.Revenue,
+                ReleaseDate = movieDetails.ReleaseDate,
+            };
+
+            foreach(var genre in movieDetails.GenresOfMovie)
+            {
+                movie.Genres.Add(new GenreModel { Id=genre.GenreId, Name=genre.Genre.Name }); //Name from thenInclude Table, need to indicate this subtable name
+            }
+
+            foreach(var trailer in movieDetails.Trailers)
+            {
+                movie.Trailers.Add(new TrailerModel { Id=trailer.Id, Name=trailer.Name, TrailerUrl=trailer.TrailerUrl });
+            }
+
+            foreach(var cast in movieDetails.MovieCasts)
+            {
+                movie.Casts.Add(new CastModel { Character = cast.Character, Id = cast.Cast.Id, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath });
+            }
+
+            
+            return movie;
         }
 
 

@@ -1,6 +1,96 @@
-﻿<h2>
-	Show movie Details Page.
-</h2>
+﻿@model ApplicationCore.Models.MovieDetialsModel
+
+<section>
+	<div class="row" style="background-image: url('http://mediacloud.theweek.com/image/private/s--gdgBalU9--/v1608654335/screen_shot_2020-08-24_at_1.15.08_pm.png');">
+        <div class="col - 4">
+		<img src="@Model.PosterUrl" class="img-fluid w-50" alt="@Model.Title" style="margin-left:5em;"/>
+        </div>
+
+		<div class="col-5">
+		    <h3 class="text-white">@Model.Title</h3>
+			<p class="text-white">@Model.RunTime min | @Model.ReleaseDate
+					@foreach (var genre in Model.Genres)
+					{
+						<span class="rounded bg-secondary text-white">@genre.Name</span>
+					}
+			</p>
+			@*should include Review Table to get Rating*@
+
+			<span class="rounded bg-success text-white text-right">8.90</span>
+			<p class="text-white">@Model.Overview</p>
+        </div>
+		<div class="col-3">
+			<div><button type="button" class="btn btn-outline-secondary text-white float-right" style="margin-top:2em; margin-left:4em; width:10em;">&rarrhk; Review</button></div>
+			<div><button type="button" class="btn btn-white bg-white text-dark float-right" style="margin-top:2em; margin-left:4em; width:10em;">Buy $9.90</button></div>	
+        </div>
+
+    </div>
+
+	<div class="row" style="margin-top:2em;">
+        <div class="col-4">
+
+		<h5>MOVIE FACTS</h5>
+		<hr>
+		<ul class="list-group list-group-flush">
+           
+			   <li class="list-group-item">
+				   &ccupssm; Release Date<span class="bg-secondary text-white" style="margin-left:1em; border-radius:8px">@Model.ReleaseDate</span>
+			   </li>
+			    <li class="list-group-item">
+				   &rAtail; Run Time<span class="bg-secondary text-white" style="margin-left:1em; border-radius:8px">@Model.RunTime m</span>
+			   </li>
+			    <li class="list-group-item">
+				   &boxbox; Box Office<span class="bg-secondary text-white" style="margin-left:1em;border-radius:8px ">$ @Model.Revenue</span>
+			   </li>
+			    <li class="list-group-item">
+				   &dollar; Budget<span class="bg-secondary text-white" style="margin-left:1em; border-radius:8px">$ @Model.Budget</span>
+			   </li>
+        </ul>
+
+
+		<h5 style="margin-top:2em;">TRAILERS</h5>
+		<hr>
+		<ul class="list-group list-group-flush">
+           @foreach (var trailer in Model.Trailers)
+		   {
+			   <li class="list-group-item">
+				   <a href="@trailer.TrailerUrl" target="_blank"> <img style="width:2em;" src="https://e7.pngegg.com/pngimages/437/213/png-clipart-youtube-play-button-computer-icons-now-button-angle-logo.png"> </a>
+				   <span style="margin-left:1em; font-size:0.7em">@trailer.Name</span>
+			   </li>
+		   }
+        </ul>
+		
+        </div>
+
+		<div class="col-8">
+		<h5>CAST</h5>
+		<hr>
+		
+		<ul class="list-group list-group-flush">
+           @foreach (var cast in Model.Casts)
+		   {
+			   <li class="list-group-item">
+				   <img src="@cast.ProfilePath" class="rounded-circle" style="width:1.5em; position:relative;">
+				   <span style="margin-left:3em;">@cast.Name</span>
+				   <span style="position:absolute; left:22em;" >@cast.Character</span>
+			   </li>
+		   }
+        </ul>
+
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
 
 
 

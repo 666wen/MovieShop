@@ -27,5 +27,21 @@ namespace ApplicationCore.Models
         public DateTime? UpdatedDate { get; set; }
         public string? UpdatedBy { get; set; }
         public string? CreatedBy { get; set; }
+
+
+        //add in list of other models. one movie -> many genre, many cast, many trailer.
+        public List<GenreModel> Genres { get; set; }
+        public List<CastModel> Casts { get; set; }
+
+        public List<TrailerModel> Trailers { get; set; }
+
+        //constructor Initialize
+        public MovieDetialsModel()
+        {
+            Genres=new List<GenreModel>();
+            Casts=new List<CastModel>();
+            Trailers=new List<TrailerModel>();
+
+        }
     }
 }
