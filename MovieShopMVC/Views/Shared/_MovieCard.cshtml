@@ -1,0 +1,12 @@
+﻿@*Movie Card Partial view will be reused across multiple views in our application*@
+
+@*//lower-case model, tell view what data type Model-passing-parameter is expecting*@
+@model ApplicationCore.Models.MovieCardModel 
+
+<div class="card mb-4 shadow">
+                <a asp-controller="Movies" asp-action="Details" asp-route-idWen="@Model.Id">
+                   @*route to https://localhost:5500/movies/details/2*@
+                   @*asp-route-(name is the same as action method input parameter name)*@
+                    <img src="@Model.PosterUrl" class="img-fluid" alt="@Model.Title" />
+                </a>
+</div>

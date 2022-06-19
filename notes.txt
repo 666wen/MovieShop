@@ -1,0 +1,85 @@
+
+ADO.NET => lower level =>  lots of code: methion the SP, SQL, manually map it to the object
+
+Dapper => micro ORM => Stackoverflow =>
+
+pre-req database should be already there
+Northwind databaswe, adventureworks
+1. mention the connectionstring (db name, server name, security)
+2. SP, SQL    select top 30 * from Movie where budget> 10000000
+3. Get the data and map in to the C# object => List<Movie>
+
+Traditional ORM Full : without db setup- do not have connection string.
+Entity Framework => Microsoft , open source
+
+Code First approach in EF, 
+1. You can craete the database without single line of sql statment
+2. Get the data without single line of SQL statement, 
+	LINQ statements => EF will convert those LINQ to SQL
+3. Automaticaly map the data to the object
+
+
+O R M
+Tables  => C# classes
+Columns => class proerties
+Rows    => List<Movie>
+
+SQL =>LINQ generated/excuted through Migregation??
+Where 
+Top
+Group
+Max
+Min
+
+
+Steps for using EF Code First approach
+
+1. Create the required Entity class for the table you wanna create, proerties that represent the columns
+   ApplicationCore>Entities
+
+2. Download the EF core Packages 
+	1. install EF Core tools package so that we can use it to run some EF Core commands
+	2. Download EF Core SQL Server packages into the solution: infra, MVC
+	 Microsoft.EntityFrameworkCore.SqlServer (based on EntityFrameworkCore, which no need install)
+	 Microsoft.EntityFrameworkCore.Design
+
+3. Specify the connection string, what database name, server name that you want EF to connect to
+4. DbContext => represents your database , DbSet => represensts your tables
+	-Create custom DbContext class that inherits from base DbContext class
+	-Infrastructure>Data folder>MovieShopDbContext.cs class
+
+5. We need to link our DbContext class with our connection string
+   - configure connection string in appsetting.json file.
+   - inject connection string into dbContext option constructor   program.cs
+
+
+6. Create the DbSet property inside the DbContext for the table you wanna use/create
+7. Migrations => create LINQ, trans to SQL to excute in db
+   -run in command prompt(not powershell): 
+       cd MovieShopMVC
+	   cls
+	   dotnet ef migrations add GenreMigration -p ../Infrastructure/Infrastructure.csproj  (can be find in docs folder)
+	   -p path indicate where to migrate the dbContext
+	   generate migration file in migration folder.
+
+8. Run update database command
+    dotnet ef database update   =>run migration file. create db, create table...
+
+9. TO make any database schema changes, never change them directly in the database, always change the entity and create a new migration and
+update the database
+10. To modify any database schema ,there are 2 approcahses in EF 1. Data Annotations way 2. Fluent API way
+
+Navigation Property: using for join table, foreign key.
+
+There are many view in our APP that needs same UI, Movie Card
+Home page => Movie Card
+User Purchases Page => Movie Card
+Movies By Genre => Movie Card
+Get Top Movies for Admin => Movie Card
+
+In MVC => Partial View
+View inside another View
+You cannot call partial view directly from controller
+The View that is using the partial view should pass the data to it. partial view does not have data.
+partial view is in shared folder, _Name
+

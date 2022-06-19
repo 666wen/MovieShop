@@ -1,5 +1,9 @@
+using ApplicationCore.Contract.Repository;
 using ApplicationCore.Contract.Services;
+using Infrastructure.Data;
+using Infrastructure.Repository;
 using Infrastructure.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +16,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMovieService, MovieService>();
 //if switch to other implementation, just change this setting
 //builder.Services.AddScoped<IMovieService, Test3MovieService>();
+
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+
+//inject the connection string into DbContext option constructor
+//get the connection string from app settings.
+builder.Services.AddDbContext<MovieShopDbContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopDbConnection"));
+}); 
+//parameter: action delegate
 
 var app = builder.Build();
 

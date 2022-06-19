@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Contract.Services;
+﻿using ApplicationCore.Contract.Repository;
+using ApplicationCore.Contract.Services;
 using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
@@ -12,24 +13,34 @@ namespace Infrastructure.Services
     //List of movies
     public class MovieService:IMovieService
     {
-        public MovieDetialsModel GetMovieDetails(int id)
+        private readonly IMovieRepository _movieRepository; //DI
+        public MovieService(IMovieRepository movieRepository)
         {
-            var movieDetails = new MovieDetialsModel();
-            return movieDetails;
+            _movieRepository = movieRepository;     //DI
         }
+
 
         public List<MovieCardModel> GetTopGrossingMovies()
         {
-            //call the movie repository to get the data from database
-            var movies = new List<MovieCardModel>
+            //call the MovieRepository to get the data from database
+            //not use: new MovieRepository(),    using DI
+
+            var movies = _movieRepository.Get30HightestGrossingMovies();
+            //this movies is list<Movie Entity>
+            var movieCards= new List<MovieCardModel>();
+            foreach (var movie in movies)
             {
-                new MovieCardModel{ Id=1, PosterUrl="", Title=""},
-                new MovieCardModel{ Id=2, PosterUrl="", Title=""},
-                new MovieCardModel{ Id=3, PosterUrl="", Title=""},
-                new MovieCardModel{ Id=4, PosterUrl="", Title=""},
-                new MovieCardModel{ Id=5, PosterUrl="", Title=""}
-            };
-            return movies;
+                movieCards.Add(new MovieCardModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
+            }
+            return movieCards;
+
+
+        }
+
+        public MovieDetialsModel GetMovieDetails(int id)
+        {
+            var movieDetails = 
+            return movieDetails;
         }
 
 

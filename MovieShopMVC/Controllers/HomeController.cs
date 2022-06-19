@@ -36,17 +36,13 @@ namespace MovieShopMVC.Controllers
             //home page
             //top 30 movies ->Movie Seivice
             //instance of MovieService Class
-
             //var movieService = new MovieService(); //tight coupling. not good!
             //var movies = movieService.GetTopGrossingMovies();
 
             //refactor the upper code by DI
             var movies = _movieService.GetTopGrossingMovies();
 
-
-
-
-            //passing the data from Controller/action method tothe view
+            //passing the data from Controller/action method to the view
             //check definition, parameter: objects model, object is a top class, any data type can be one kind sub object.
             return View(movies);  //go to Views and find same name cshtml file under the folder with the same name as the controler.
         }

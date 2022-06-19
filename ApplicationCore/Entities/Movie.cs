@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationCore.Models
+namespace ApplicationCore.Entities
 {
-    public class MovieDetialsModel
+    public class Movie
     {
-        //many many properties depends on movie detials page view 
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Overview { get; set; }
@@ -27,5 +26,16 @@ namespace ApplicationCore.Models
         public DateTime? UpdatedDate { get; set; }
         public string? UpdatedBy { get; set; }
         public string? CreatedBy { get; set; }
+
+
+        public ICollection<MovieGenre> GenresOfMovie { get; set; }
+        public ICollection<Trailer> Trailers { get; set; }
+
+        //navigation property
+        public ICollection<MovieCrew> MovieCrewers { get; set; }
+        public ICollection<MovieCast> MovieCasts { get; set; }
+        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Purchase> Purchase { get; set; }
+        public ICollection<Favorite> Favorite { get; set; }
     }
 }
