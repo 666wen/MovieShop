@@ -4,9 +4,17 @@ namespace MovieShopMVC.Controllers
 {
     public class UserController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Review()
+        {
+
+            return View();
+        }
+
+        public IActionResult OrderConfirm()
         {
             return View();
         }
     }
+
+
 }

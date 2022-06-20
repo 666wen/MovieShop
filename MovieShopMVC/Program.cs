@@ -18,6 +18,8 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 //builder.Services.AddScoped<IMovieService, Test3MovieService>();
 
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<ICastRepository, CastRepository>();
+builder.Services.AddScoped<ICastService, CastService>();
 
 //inject the connection string into DbContext option constructor
 //get the connection string from app settings.

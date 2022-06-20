@@ -56,7 +56,7 @@ namespace Infrastructure.Services
                 ReleaseDate = movieDetails.ReleaseDate,
             };
 
-            foreach(var genre in movieDetails.GenresOfMovie)
+            foreach(var genre in movieDetails.GenresOfMovie) //join table Icollection name
             {
                 movie.Genres.Add(new GenreModel { Id=genre.GenreId, Name=genre.Genre.Name }); //Name from thenInclude Table, need to indicate this subtable name
             }

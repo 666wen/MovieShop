@@ -20,8 +20,12 @@
 			<p class="text-white">@Model.Overview</p>
         </div>
 		<div class="col-3">
-			<div><button type="button" class="btn btn-outline-secondary text-white float-right" style="margin-top:2em; margin-left:4em; width:10em;">&rarrhk; Review</button></div>
-			<div><button type="button" class="btn btn-white bg-white text-dark float-right" style="margin-top:2em; margin-left:4em; width:10em;">Buy $9.90</button></div>	
+			<a asp-controller="User" asp-action="Review" target="_blank">
+				<div><button type="button" class="btn btn-outline-secondary text-white float-right" style="margin-top:2em; margin-left:4em; width:10em;">&rarrhk; Review</button></div>
+			</a>
+			<a asp-controller="User" asp-action="OrderConfirm" target="_blank">
+				<div><button type="button" class="btn btn-white bg-white text-dark float-right" style="margin-top:2em; margin-left:4em; width:10em;">Buy $9.90</button></div>
+			</a>
         </div>
 
     </div>
@@ -69,11 +73,14 @@
 		<ul class="list-group list-group-flush">
            @foreach (var cast in Model.Casts)
 		   {
-			   <li class="list-group-item">
-				   <img src="@cast.ProfilePath" class="rounded-circle" style="width:1.5em; position:relative;">
-				   <span style="margin-left:3em;">@cast.Name</span>
-				   <span style="position:absolute; left:22em;" >@cast.Character</span>
-			   </li>
+			   <a asp-controller="Cast" asp-action="CastDetails" asp-route-idCast="@cast.Id" target="_blank">
+				    <li class="list-group-item">
+				       <img src="@cast.ProfilePath" class="rounded-circle" style="width:1.5em; position:relative;">
+				       <span style="margin-left:3em;">@cast.Name</span>
+				       <span style="position:absolute; left:22em;" >@cast.Character</span>
+			        </li>
+			   </a>
+			  
 		   }
         </ul>
 
