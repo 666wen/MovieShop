@@ -1,0 +1,61 @@
+ASP.NET Core => deploy the movieshop in the server
+
+Windows => IIS Server
+Linux => Ngix
+Azure Cloud => Azure App Service
+
+ASP.NET Core can handle only certain number of requests at the one moment
+
+10:00 AM MovieShop app on server => LIVE
+http://movieshop.com => Making a new request
+
+100's users coming in at the same time,
+Application needs to be properly scalable
+
+ASP.NET Core maintains Thread Pool => Collection of threads T1....T100
+only limited number of threads. when set a thread, it need allocate some memory for it --> cost resource.
+
+10:01 
+100 users accesing the same page home page T1 to T100
+U101, 102, 103 , 104 => Serveice busy/service unavablie exception
+
+2001
+async/await 2012
+
+Managing threads properly and we dont want any threads to be waiting for I/O operation to finish
+
+Thread Starvation
+ASP.NET Core does not run out of threads
+
+public async Task<IActionResult> Index() 
+{
+   // 1. async
+   // 2. await must following by an I/O bound operation.
+   // 3. return type should be Task<T>
+     var i = 9;
+     var x = "fsdfdsf";
+	 
+	 // T1 is waiting
+	 // await something, I/O bound operation 
+	 var movies = await _movieService.GetTopGrossingMovies();
+
+	 async/await
+	 I/O bound operation:
+	 Database => EF Core and Dapper and ADO.NET, 
+	 they expose sync methods and async methods that return task
+	 Http Call (for other )
+	 Reading/writing a file
+
+	 CPU bound operations(memory calculate, occupite thread?):
+	 Calculations, Loan amount, image processing
+
+	 
+	 //pagenation
+	 Select *
+	 from Moviegenre mg join Movie m on mg.MovieId = m.id 
+	 where mg.Genreid = @id (1,2)
+	 offset 60 and fetch 30 next rows
+
+	 skip(0) and Take(30)
+	 skip( pageSize * (Pagenumber-1) ) and Take(30)
+}

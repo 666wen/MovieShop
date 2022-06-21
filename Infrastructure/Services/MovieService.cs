@@ -20,12 +20,12 @@ namespace Infrastructure.Services
         }
 
 
-        public List<MovieCardModel> GetTopGrossingMovies()
+        public async Task<List<MovieCardModel>> GetTopGrossingMovies()
         {
             //call the MovieRepository to get the data from database
             //not use: new MovieRepository(),    using DI
 
-            var movies = _movieRepository.Get30HightestGrossingMovies();
+            var movies = await _movieRepository.Get30HightestGrossingMovies();
             //this movies is list<Movie Entity>
             var movieCards = new List<MovieCardModel>();
             foreach (var movie in movies)
@@ -37,9 +37,9 @@ namespace Infrastructure.Services
 
         }
 
-        public MovieDetialsModel GetMovieDetails(int id)
+        public async Task<MovieDetialsModel> GetMovieDetails(int id)
         {
-            var movieDetails = _movieRepository.GetById(id);//entity type
+            var movieDetails =await _movieRepository.GetById(id);//entity type
             var movie = new MovieDetialsModel
             {
                 Id = movieDetails.Id,

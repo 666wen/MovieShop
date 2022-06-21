@@ -16,13 +16,13 @@ namespace Infrastructure.Repository
         {
         }
 
-        public override Cast GetById(int id)  //return Cast entity??
+        public async override Task<Cast> GetById(int id)  //return Cast entity??
         {
             //select * from Casts Join Cast join MovieCast 
             //where id=id
-            var castDetails =
+            var castDetails =await
                 _dbContext.Casts.Include(m => m.MovieCasts).ThenInclude(m=>m.Movie) //navigation property
-                .FirstOrDefault(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             return castDetails;
         }
     }

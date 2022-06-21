@@ -11,6 +11,6 @@ namespace ApplicationCore.Contract.Services
     {
       
         //get movie details
-        CastDetailsModel GetCastDetails(int id);
+        Task<CastDetailsModel> GetCastDetails(int id);
     }
 }

@@ -31,7 +31,7 @@ namespace MovieShopMVC.Controllers
 
 
         [HttpGet] //default is Get request.
-        public IActionResult Index()  //action
+        public async Task<IActionResult> Index()  //action
         {
             //home page
             //top 30 movies ->Movie Seivice
@@ -40,7 +40,7 @@ namespace MovieShopMVC.Controllers
             //var movies = movieService.GetTopGrossingMovies();
 
             //refactor the upper code by DI
-            var movies = _movieService.GetTopGrossingMovies();
+            var movies = await _movieService.GetTopGrossingMovies();
 
             //passing the data from Controller/action method to the view
             //check definition, parameter: objects model, object is a top class, any data type can be one kind sub object.

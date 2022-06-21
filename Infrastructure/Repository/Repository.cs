@@ -16,27 +16,27 @@ namespace Infrastructure.Repository
         {
             _dbContext= dbContext;
         }
-        public T Add(T entity)
+        public Task<T> Add(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public T Delete(T entity)
+        public Task<T> Delete(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual Task<IEnumerable<T>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public virtual T GetById(int id)  //make it virtual, can be override 
+        public virtual Task<T> GetById(int id)  //make it virtual, can be override 
         {
             throw new NotImplementedException();
         }
 
-        public T Update(T entity)
+        public Task<T> Update(T entity)
         {
             throw new NotImplementedException();
         }

@@ -13,9 +13,9 @@ namespace MovieShopMVC.Controllers
         }
 
         //show details of the movie
-        public IActionResult Details(int idWen)
+        public async Task<IActionResult> Details(int idWen)
         {
-            var movie = _movieService.GetMovieDetails(idWen);
+            var movie =await _movieService.GetMovieDetails(idWen);
 
             return View(movie);
         }

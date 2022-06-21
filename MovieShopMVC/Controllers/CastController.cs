@@ -10,9 +10,9 @@ namespace MovieShopMVC.Controllers
         {
             _castService = castService;
         }
-        public IActionResult CastDetails(int idCast)
+        public async Task<IActionResult> CastDetails(int idCast)
         {
-            var castDetails= _castService.GetCastDetails(idCast);
+            var castDetails=await  _castService.GetCastDetails(idCast);
             return View(castDetails);
         }
     }

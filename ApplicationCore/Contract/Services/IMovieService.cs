@@ -10,10 +10,12 @@ namespace ApplicationCore.Contract.Services
     public interface IMovieService
     {
         //all the business functionality methods pertaining to movies
-        List<MovieCardModel> GetTopGrossingMovies();
+        //not Async
+        //List<MovieCardModel> GetTopGrossingMovies();
+        //MovieDetialsModel GetMovieDetails(int id);
 
-        //get movie details
-        MovieDetialsModel GetMovieDetails(int id);
+        Task<List<MovieCardModel>> GetTopGrossingMovies();
+        Task<MovieDetialsModel> GetMovieDetails(int id);
 
 
     }
