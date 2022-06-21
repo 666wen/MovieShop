@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contract.Repository;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,11 @@ namespace Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public virtual Task<IEnumerable<T>> GetAll()
+        public async virtual Task<IEnumerable<T>> GetAll()
         {
-            throw new NotImplementedException();
+            // get all the records from the table
+            // we can use this method for getting all the list of genres
+            return await _dbContext.Set<T>().ToListAsync(); //set()??
         }
 
         public virtual Task<T> GetById(int id)  //make it virtual, can be override 

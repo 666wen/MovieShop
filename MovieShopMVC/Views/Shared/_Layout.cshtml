@@ -22,12 +22,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @*-----------------------add drop down genre menu-------------------------------*@
+                         <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" href="#" id="dropdownMenuButton1" data-bs-toggle="dropdown">Genres</a>
+                            <div class="dropdown-menu">
+                                @*call the Genre view component *@
+                                @await Component.InvokeAsync("Genres")
+                            </div>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TopRatedMovies">Top Rated Movies</a>
-                        </li>
+                        
+
                     </ul>
                 </div>
             </div>
