@@ -27,13 +27,16 @@ namespace ApplicationCore.Models
         public DateTime? UpdatedDate { get; set; }
         public string? UpdatedBy { get; set; }
         public string? CreatedBy { get; set; }
+        public decimal Ave_rating { get; set; }
 
 
-        //add in list of other models. one movie -> many genre, many cast, many trailer.
+        //add in list of other models. one movie -> many genre, many cast, many trailer, Review.
         public List<GenreModel> Genres { get; set; }
         public List<CastModel> Casts { get; set; }
 
         public List<TrailerModel> Trailers { get; set; }
+
+        public List<ReviewModel> Reviews { get; set; }
 
         //constructor Initialize
         public MovieDetialsModel()
@@ -41,6 +44,7 @@ namespace ApplicationCore.Models
             Genres=new List<GenreModel>();
             Casts=new List<CastModel>();
             Trailers=new List<TrailerModel>();
+            Reviews=new List<ReviewModel>();
 
         }
     }

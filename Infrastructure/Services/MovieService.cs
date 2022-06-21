@@ -11,7 +11,7 @@ namespace Infrastructure.Services
 {
     //mothod that return top movies to the caller
     //List of movies
-    public class MovieService:IMovieService
+    public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository; //DI
         public MovieService(IMovieRepository movieRepository)
@@ -27,7 +27,7 @@ namespace Infrastructure.Services
 
             var movies = _movieRepository.Get30HightestGrossingMovies();
             //this movies is list<Movie Entity>
-            var movieCards= new List<MovieCardModel>();
+            var movieCards = new List<MovieCardModel>();
             foreach (var movie in movies)
             {
                 movieCards.Add(new MovieCardModel { Id = movie.Id, PosterUrl = movie.PosterUrl, Title = movie.Title });
@@ -54,27 +54,38 @@ namespace Infrastructure.Services
                 TmdbUrl = movieDetails.TmdbUrl,
                 Revenue = movieDetails.Revenue,
                 ReleaseDate = movieDetails.ReleaseDate,
+                Price = movieDetails.Price,
+                Ave_rating=0.0m
             };
 
-            foreach(var genre in movieDetails.GenresOfMovie) //join table Icollection name
+            foreach (var genre in movieDetails.GenresOfMovie) //join table Icollection name
             {
-                movie.Genres.Add(new GenreModel { Id=genre.GenreId, Name=genre.Genre.Name }); //Name from thenInclude Table, need to indicate this subtable name
+                movie.Genres.Add(new GenreModel { Id = genre.GenreId, Name = genre.Genre.Name }); //Name from thenInclude Table, need to indicate this subtable name
             }
 
-            foreach(var trailer in movieDetails.Trailers)
+            foreach (var trailer in movieDetails.Trailers)
             {
-                movie.Trailers.Add(new TrailerModel { Id=trailer.Id, Name=trailer.Name, TrailerUrl=trailer.TrailerUrl });
+                movie.Trailers.Add(new TrailerModel { Id = trailer.Id, Name = trailer.Name, TrailerUrl = trailer.TrailerUrl });
             }
 
-            foreach(var cast in movieDetails.MovieCasts)
+            foreach (var cast in movieDetails.MovieCasts)
             {
                 movie.Casts.Add(new CastModel { Character = cast.Character, Id = cast.Cast.Id, Name = cast.Cast.Name, ProfilePath = cast.Cast.ProfilePath });
             }
 
-            
+            int count=0;
+            foreach (var review in movieDetails.Reviews)
+            {
+                movie.Reviews.Add(new ReviewModel { MovieId = review.MovieId, UserId = review.UserId, Rating = review.Rating, ReviewText = review.ReviewText });
+                movie.Ave_rating += review.Rating;
+                count++;
+            }
+            //one movie => multiple reviews, calculate average rating in MovieService
+            movie.Ave_rating /= count;
+
+
             return movie;
+
         }
-
-
     }
 }
