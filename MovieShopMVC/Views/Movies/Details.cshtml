@@ -141,7 +141,7 @@
 		<ul class="list-group list-group-flush">
            @foreach (var cast in Model.Casts)
 		   {
-			   <a asp-controller="Cast" asp-action="CastDetails" asp-route-idCast="@cast.Id" target="_blank">
+			   <a asp-controller="Cast" asp-action="CastDetails" asp-route-idCast="@cast.Id" target="_self">
 				    <li class="list-group-item">
 				       <img src="@cast.ProfilePath" class="rounded-circle" style="width:1.5em; position:relative;">
 				       <span style="margin-left:3em;">@cast.Name</span>
