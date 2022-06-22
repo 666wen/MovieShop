@@ -1,0 +1,62 @@
+
+AWS
+Azure
+GCP
+
+3 categories:
+1.Platform as a Service (PaaS)
+2.Infrastructure as a Service -> VM
+3.Software as a Service -> Regular Users, Office 365, Google Docs, Google Drive...
+
+Target: ASP.NET Core app to be on Server so that people can start using it.
+
+Windows Server -> IIs
+Linux Server -> Ngix
+
+DataCenter -> Physical Location: servers(Win/Linux), Costs, Security...
+
+Option1: buy Azure VM (infrastructure service), install Win/Linux service, deploy app.
+Cons: you need to manage the OS updates, need to manage any server patches, manage SSL certificates, IP, Domain names.
+
+Option2: Platform as a service. (do not need to manage infrastructure)
+Azure App Service -> java/ python/ .Net different app
+Azure SQL
+Azure Functions
+Azure Blob Storage
+Azure Cognitive Service ->Face ID, ML
+Azure Dev Ops -> Development + Operations
+
+Company Process:
+QA Team
+Business Team
+Users
+
+.Net Team:  MVC developed first 3 pages -> check code in GitHub -> Aotomaticlly do:
+            1.Publish our app to Server (Azure App Service) http://qa.movieshop.com
+            2.run Unit Test Cases
+
+To the above 2 goals, configure the Azure DevOps
+CI -> Continus Integration: take the code from GitHub, build code and run any unit test cases. Trigged everytime when new code checkin Github.
+     If failed: notify
+     If passed: go to CD
+
+CD -> Continus Delivery: it will take the passed build and deploy to Azure APP Service automatically.
+
+
+-----------------------------------------------------------------
+DEV Enviroment
+QA Enviroment
+Staging/PreProduction
+
+Production/GoLive: scheduled publish every 2-3weeks. not automatically.
+
+
+
+
+
+
+
+
+
+
+
