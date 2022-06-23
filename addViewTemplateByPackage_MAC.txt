@@ -1,0 +1,17 @@
+This can also works for windows (for MAC does not has this built in)
+generate view automatically with predefined code
+
+ (Or install package in MVC project Nuget Package)
+
+# Razor Views
+``` shell
+dotnet tool uninstall -g dotnet-aspnet-codegenerator
+dotnet tool install -g dotnet-aspnet-codegenerator
+```
+
+
+``` shell
+dotnet-aspnet-codegenerator view Register create -m UserRegisterRequestModel  -outDir Views/Account  -udl  -scripts
+dotnet-aspnet-codegenerator view Login create -m LoginRequestModel -outDir Views/Account  -udl  -scripts
+udl is use default layout
+```

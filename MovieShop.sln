@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B1D9E7DB-2E7C-4866-A5F2-4E75C4CF9B25}"
 	ProjectSection(SolutionItems) = preProject
+		addViewTemplateByPackage_MAC.txt = addViewTemplateByPackage_MAC.txt
 		note2.txt = note2.txt
 		notes.txt = notes.txt
 		Note_Azure.txt = Note_Azure.txt
+		notes_Authentication.txt = notes_Authentication.txt
 	EndProjectSection
 EndProject
 Global

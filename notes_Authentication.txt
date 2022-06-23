@@ -1,0 +1,36 @@
+Authentication => verify who u are 
+Authorization => permissions to access something
+
+1. Annonymous methods=> Home, Cast Details, Movie Details, Movie By Genre, Login and Register
+2. User methods => BUY, Favorite, Review, Edit Profile, View Profile
+3. Admin methods=> Create Movie, Create Cast, Get Top Purchased Movie (Report)
+
+
+Register:
+Email, Password, FirstName, LastName, DOB => form Submit => 
+POST => AccountController, Register [POST]
+=> Saving data to User Table => 
+U1 => abc@abc.com Password123!!  HH  GGG   1999/2/2
+
+Worst => Plain Text
+Better => Encryption => Not Recommnded, admin do recryption can see passwords
+Good => Hashing => One WAY, there is no rehashing func. do not want same password have same hashing string.
+Even Better => Hashing with Salt (Interview Question)
+
+Encrypt Alg => Password123!! =>   slfklhdsklfhdlkfdlskajnf
+Decrypt Alg => slfklhdsklfhdlkfdlskajnf => Password123!!
+
+Hash Alg => Password123!! => bfdkasjfkdafdanfkadnflkanflnakfna
+
+U1 => abc@abc.com (Password123!! + fksdhfdskhf) Hash Alg => fgsgsgsgfdsgfdsgfdsgfdsgfdsgsfggsfgsgfg 
+U2 => xyx@abc.com (Password123!! + 5904385fsdh) Hash Alg => sdfdsdgsgsfgfdsgsadetry645e654gdfbgsxfg
+
+
+Login:
+Email		abc@abc.com
+Password    Password123!!
+
+Submit => (Password123!! + fksdhfdskhf)  Hash Alg => fgsgsgsgfdsgfdsgfdsgfdsgfdsgsfggsfgsgfg
+
+Never every create your own Hashing Algorithm!
+Industry tried and tested algoritmns:PBKDF2, argon2,bcrypt

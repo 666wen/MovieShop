@@ -29,8 +29,8 @@ namespace Infrastructure.Repository
             //LINQ code to get top 30 grossing movies
             //select top(30) * from MovieTable  order by revenue
             //I/O bound operation
-            //var movies = await _dbContext.Movies.OrderByDescending(x=>x.Revenue).Take(30).ToListAsyn();
-            var movies =await _dbContext.Movies.Take(30).ToListAsync();
+            var movies = await _dbContext.Movies.OrderByDescending(x=>x.Revenue).Take(30).ToListAsync();
+            //var movies =await _dbContext.Movies.Take(30).ToListAsync();
             //Movies: check Dbset table defined name in MoviesShopDbContext class
             //return list {{Movie Entity},{row2}...}
             return movies;

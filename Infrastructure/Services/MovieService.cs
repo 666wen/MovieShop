@@ -81,7 +81,11 @@ namespace Infrastructure.Services
                 count++;
             }
             //one movie => multiple reviews, calculate average rating in MovieService
-            movie.Ave_rating /= count;
+            if (count > 0)
+            {
+                movie.Ave_rating /= count; //incase divide by 0 exception.
+            }
+            
 
 
             return movie;
