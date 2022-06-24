@@ -4,6 +4,7 @@ using ApplicationCore.Entities;
 using Infrastructure.Data;
 using Infrastructure.Repository;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,8 +32,22 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddDbContext<MovieShopDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("MovieShopDbConnection"));
-}); 
+});
 //parameter: action delegate
+
+
+//set Cookie based authentication 
+//there are many kind of Authentication: cookie, JWT,
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(
+       options =>
+       {
+           //setting for cookie
+           options.Cookie.Name = "MovieShopCookie";
+           options.ExpireTimeSpan = TimeSpan.FromHours(2);
+           options.LoginPath = "/account/login"; //if authentication not successfully, defaultlly redirect to this page
+       }
+    );
 
 var app = builder.Build();
 

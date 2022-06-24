@@ -55,16 +55,29 @@ namespace Infrastructure.Services
 
         }
 
-        public async Task<bool> ValidateUser(UserLoginModel model)
+        public async Task<UserModel> ValidateUser(UserLoginModel model)
         {
             //go to database and get the row by email
             var user = await _userRepository.GetUserByEmail(model.Email);
             if (user == null)
             {
                 throw new Exception("Email does not exists");
-                return false;
+                
             }
-            return true;
+            var hashedPassword = GetHashedPassword(model.Password, user.Salt);
+            if(hashedPassword == user.HashedPassword)
+            {
+                var userModel = new UserModel
+                {
+                    Id = user.Id,
+                    DateOfBirth = user.DateOfBirth.GetValueOrDefault(),
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName
+                };
+                return userModel;
+            }
+            return null;
         }
 
         //install two package: keyDerivation, Cryptography.Cng in Infrustructure NuGet
