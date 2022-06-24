@@ -17,9 +17,11 @@ namespace Infrastructure.Repository
         {
             _dbContext= dbContext;
         }
-        public Task<T> Add(T entity)
+        public async Task<T> Add(T entity)
         {
-            throw new NotImplementedException();
+            _dbContext.Set<T>().Add(entity); //Set<> is DbSet<> is virsal Table
+            await _dbContext.SaveChangesAsync(); //save the database. commit the transaction.
+            return entity;
         }
 
         public Task<T> Delete(T entity)
