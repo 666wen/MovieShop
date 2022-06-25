@@ -1,0 +1,30 @@
+﻿@using MovieShopMVC.Services
+
+@*In view, DI can just use keyword inject, indicate in program.cs*@
+@inject ICurrentLogedInUser currentUser
+
+@*hide login and reigister button if user is authenticated and show user Fullname, email and links for profile and logout*@
+@if (currentUser.IsAuthenticated)
+{
+	<div class="text-end dropdown me=3">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+   Hi, @currentUser.FullName
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" asp-controller="User" asp-action="Purchase" >Purchases</a></li>
+    <li><a class="dropdown-item" asp-controller="User" asp-action="Favorite">Favorites</a></li>
+    <li><a class="dropdown-item" asp-controller="User" asp-action="Profile">View Profile/Account</a></li>
+    <li><a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a></li>
+  </ul>
+</div>
+}
+else
+{
+    @*show show and register buttons if user is not login*@
+    @*UseExtensions this partial view in layout *@
+    <div class="text-end">
+        <a class="btn btn-outline-promary me-3" asp-controller="Account" asp-action="Login">Login</a>
+         <a class="btn btn-outline-promary me-3" asp-controller="Account" asp-action="Register">Register</a>
+    </div>
+}
+

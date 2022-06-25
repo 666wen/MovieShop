@@ -48,14 +48,14 @@ namespace MovieShopMVC.Controllers
                 //first tell ASP.NET application that we are using Cookie based Authentication so that
                 //ASP.NET can generate Cookie based on the setting we provide
 
-                //create Identity object that will identify the user with claim
+                //create Identity object that will identify the user with claim,
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 //Principle object which is used by ASP.NET to recognize the User
                 //create the Cookie with above information
                 //HttpContext => Encapsulates your Http Request informaion
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(identity));
+                    new ClaimsPrincipal(identity));  //ClaimsPrincipal, - User obj in Context
 
                 return LocalRedirect("~/");
             }
@@ -77,6 +77,15 @@ namespace MovieShopMVC.Controllers
             //redirect to login page
             
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            //clear cookie
+            HttpContext.SignOutAsync();
+            return LocalRedirect("~/");//RedirectToAction("Login");
+
         }
 
     }
