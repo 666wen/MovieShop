@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contract.Repository;
 using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -57,5 +58,24 @@ namespace Infrastructure.Repository
             return movieDetails;
         }
 
+        public async Task<PagedResultSetModel<Movie>> GetMoviesByGenre(int genreId, int pageSize = 30, int pageNumber = 1)
+        {
+            //get total count of movies of this genre
+            var totalMoviesForGenre = await _dbContext.MovieGenres.Where(x=>x.Genre.Id == genreId).CountAsync();
+
+            var movies =await  _dbContext.MovieGenres
+                .Where(x=>x.Genre.Id == genreId)
+                .Include(x => x.Movie) //check entity navigation table name
+                .OrderByDescending(x => x.Movie.Revenue)
+                .Select(x => new Movie { Id=x.MovieId, PosterUrl=x.Movie.PosterUrl, Title=x.Movie.Title })
+                .Skip(pageSize*(pageNumber-1))
+                .Take(pageSize).ToListAsync();
+
+            var pagedMovies = new PagedResultSetModel<Movie>(pageNumber, totalMoviesForGenre, pageSize, movies);
+            return pagedMovies;
+
+
+
+        }
     }
 }

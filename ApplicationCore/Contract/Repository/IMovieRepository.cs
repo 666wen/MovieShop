@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace ApplicationCore.Contract.Repository
         //IEnumerable<Movie> Get30HighestRatingMovies();
         Task<IEnumerable<Movie>> Get30HightestGrossingMovies();
         Task<IEnumerable<Movie>> Get30HighestRatingMovies();
+        Task<PagedResultSetModel<Movie>> GetMoviesByGenre(int genreId, int pageSize=30, int pageNumber=1);
     }
 }

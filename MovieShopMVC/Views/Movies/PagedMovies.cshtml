@@ -1,0 +1,63 @@
+﻿@model ApplicationCore.Models.PagedResultSetModel<ApplicationCore.Models.MovieCardModel>
+
+<div class="rounded">
+    <div class="container bg-light">
+        <div class="row">
+            @foreach (var movie in Model.PagedData)
+            {
+                <div class="col-6 col-lg-3 col-sm-4 col-xl-2">
+
+                    <partial name="_MovieCard" model="movie" />
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+@*Display previous and Next Buttons-----------------------
+  When you are on first Page Previous button should be disabled
+  When you are on last page Next button should be disabled *@
+
+@*
+@{
+    var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a class="btn btn-primary @previousDisabled" asp-action="Genre" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber-1)">
+    Previous
+</a>
+<a class="btn btn-primary @nextDisabled" asp-action="Genre" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber + 1)">
+    Next
+</a>
+*@
+
+@*---------------or-----------------*@
+@*Display all the page numbers 1000 records 1000/30 => 34 pages 1 2 3 ......34*
+When you are on first Page then disable First Page, when on last page disable last 34 page button
+*@
+
+@{
+    var PreDisabled = ((@Model.PageNumber-1)<1) ? "disabled" : "";
+    var curDisabled = ((Model.PageNumber)>@Model.TotalPages)? "disabled" : "";
+    var oneDisabled = ((Model.PageNumber)>@Model.TotalPages)? "disabled" : "";
+    var twoDisabled = ((Model.PageNumber+1)>@Model.TotalPages)? "disabled" : "";
+    var threeDisabled = ((Model.PageNumber+2)>@Model.TotalPages)? "disabled" : "";
+    var nextDisabled = ((Model.PageNumber+3)>@Model.TotalPages)? "disabled" : "";
+}
+
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item @PreDisabled">
+      <a class="page-link" asp-action="Genre" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber-1)">Previous</a>
+    </li>
+    <li class="page-item @curDisabled"><a class="page-link" asp-action="Genre" asp-controller="Movies" asp-route-pageNumber="@Model.PageNumber">@Model.PageNumber</a></li>
+    <li class="page-item @oneDisabled"><a class="page-link" asp-action="Genre" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber+1)">@(Model.PageNumber+1)</a></li>
+    <li class="page-item @twoDisabled"><a class="page-link" asp-action="Genre" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber+2)">@(Model.PageNumber+2)</a></li>
+    <li class="page-item @threeDisabled"><a class="page-link" asp-action="Genre" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber+3)">...</a></li>
+    <li class="page-item @nextDisabled">
+      <a class="page-link" asp-action="Genre" asp-controller="Movies" asp-route-pageNumber="@(Model.PageNumber+4)">Next</a>
+    </li>
+  </ul>
+</nav>

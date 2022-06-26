@@ -91,5 +91,20 @@ namespace Infrastructure.Services
             return movie;
 
         }
+
+        public async Task<PagedResultSetModel<MovieCardModel>> GetMoviesByGenre(int genreId, int pageSize=30, int pageNumber=1)
+        {
+            var movies =await _movieRepository.GetMoviesByGenre(genreId, pageSize, pageNumber);
+
+            var movieCards = new List<MovieCardModel>();
+            foreach (var movie in movies.PagedData)
+            {
+                movieCards.Add(new MovieCardModel { Id=movie.Id, PosterUrl = movie.PosterUrl, Title=movie.Title });
+
+            }
+
+            return new PagedResultSetModel<MovieCardModel>(pageNumber, movies.TotalRecords, pageSize, movieCards);
+      
+        }
     }
 }
