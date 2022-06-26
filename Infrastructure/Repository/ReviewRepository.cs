@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
 {
-    public class PurchaseRepository: Repository<Purchase>, IPurchaseRepository
+    public class ReviewRepository:Repository<Review>, IReviewRepository
     {
-        public PurchaseRepository(MovieShopDbContext dbContaxt) : base(dbContaxt)
+        public ReviewRepository(MovieShopDbContext dbContaxt) : base(dbContaxt)
         {
         }
 
-        
     }
 }

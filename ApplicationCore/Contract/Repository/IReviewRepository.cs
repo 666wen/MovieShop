@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Contract.Repository
 {
-    public interface IPurchaseRepository: IRepository<Purchase>
+    public interface IReviewRepository:IRepository<Review>
     {
     }
 }

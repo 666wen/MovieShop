@@ -1,5 +1,6 @@
 ﻿@model ApplicationCore.Models.MovieDetialsModel
 
+
 <section>
 	<div class="row" style="background-image: url('http://mediacloud.theweek.com/image/private/s--gdgBalU9--/v1608654335/screen_shot_2020-08-24_at_1.15.08_pm.png');">
         <div class="col - 4">
@@ -40,10 +41,16 @@
       </div>
       <div class="modal-body">
 	  @*-------------------*@
-         <form>
+         <form asp-action="AddReview" asp-controller="User">
+			 <div class="form-group">
+                <label for="MovieId" class="control-label"></label>   
+				<span>Review for : @Model.Title  </span>
+                <input type="radio" id="MovieId" name="MovieId" value="@Model.Id">
+            </div>
+
   <div class="form-group">
-    <label for="exampleFormControlSelect1">Rating</label>
-    <select class="form-control" id="exampleFormControlSelect1">
+    <label for="Rating">Rating</label>
+    <select class="form-control" name="Rating" id="Rating">
       <option>1</option>
       <option>2</option>
       <option>3</option>
@@ -58,14 +65,16 @@
   </div>
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Review</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="ReviewText"></textarea>
   </div>
+
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
         </form>
 @*--------------------------*@
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
   </div>
@@ -89,7 +98,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Confirm</button>
+        <a class="btn btn-primary" asp-action="BuyMovie" asp-controller="User" asp-route-movieId="@Model.Id">Confirm</a>
       </div>
     </div>
   </div>

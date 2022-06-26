@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ApplicationCore.Contract.Services;
+using ApplicationCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MovieShopMVC.Services;
 
@@ -10,9 +12,11 @@ namespace MovieShopMVC.Controllers
     {
         //DI get login User infor from cookie, claim principle
         private readonly ICurrentLogedInUser _currentLogedInUser;
-            public UserController(ICurrentLogedInUser currentLogedInUser)
+        private readonly IUserService _userService;
+            public UserController(ICurrentLogedInUser currentLogedInUser, IUserService userService)
         {
-                _currentLogedInUser = currentLogedInUser;
+            _currentLogedInUser = currentLogedInUser;
+            _userService = userService;
         }
 
 
@@ -22,6 +26,7 @@ namespace MovieShopMVC.Controllers
         // Authorize Filter is built in , also can write costomed filter.
         public async Task<IActionResult> Purchase()
         {
+
             //go to database and get all the movies purchased by user, by user id in the http request cookies
             //var cookie = this.HttpContext.Request.Cookies["MovieShopAuthCookie"];
             var userId = _currentLogedInUser.UserId;
@@ -44,9 +49,14 @@ namespace MovieShopMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddReview()
+        public async Task<IActionResult> AddReview(ReviewModel reviewModel)
         {
-            return View();
+            var userId = _currentLogedInUser.UserId;
+            reviewModel.UserId = userId;
+            var addConfirm = await _userService.AddMovieReview(reviewModel);  
+
+
+            return View("BuyMovie");
         }
         [HttpPost]
         public async Task<IActionResult> AddFavorite()
@@ -54,10 +64,23 @@ namespace MovieShopMVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> BuyMovie()
+        [HttpGet]  //Important get or post!!
+        public async Task<IActionResult> BuyMovie(int movieId)
         {
-            return View();
+            if (!_currentLogedInUser.IsAuthenticated)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var purchaseConfirm= await _userService.PurchaseMovie(movieId, _currentLogedInUser.UserId);
+            //return LocalRedirect("~/");
+
+            if (purchaseConfirm)
+            {
+               return View();
+            }
+            return RedirectToAction("Details");
+            
         }
 
     }

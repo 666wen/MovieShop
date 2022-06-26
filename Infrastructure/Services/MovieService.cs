@@ -57,6 +57,7 @@ namespace Infrastructure.Services
                 Price = movieDetails.Price,
                 Ave_rating=0.0m
             };
+            
 
             foreach (var genre in movieDetails.GenresOfMovie) //join table Icollection name
             {
@@ -84,6 +85,7 @@ namespace Infrastructure.Services
             if (count > 0)
             {
                 movie.Ave_rating /= count; //incase divide by 0 exception.
+                movie.Ave_rating = decimal.Round(movie.Ave_rating, 2, MidpointRounding.AwayFromZero);
             }
             
 
