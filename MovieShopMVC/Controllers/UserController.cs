@@ -78,7 +78,7 @@ namespace MovieShopMVC.Controllers
             var addConfirm = await _userService.AddMovieReview(reviewModel);
 
 
-            return StatusCode(200);//new HttpStatusCodeResult(200); //new EmptyResult();  return Ok status, empty page
+            return View();//new HttpStatusCodeResult(200); //new EmptyResult();  return Ok status, empty page
         }
        
 
