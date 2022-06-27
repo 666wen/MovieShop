@@ -31,6 +31,7 @@ builder.Services.AddScoped<ICurrentLogedInUser, CurrentLogedInUser>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPurchaseRepository,PurchaseRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
 
 //Inject HttpContext for IHttpContextAccessor interface
 builder.Services.AddHttpContextAccessor();

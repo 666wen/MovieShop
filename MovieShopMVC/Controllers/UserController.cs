@@ -30,8 +30,9 @@ namespace MovieShopMVC.Controllers
             //go to database and get all the movies purchased by user, by user id in the http request cookies
             //var cookie = this.HttpContext.Request.Cookies["MovieShopAuthCookie"];
             var userId = _currentLogedInUser.UserId;
+            var purchasedMovie= await _userService.GetAllPurchasesForUser(userId);
 
-            return View();
+            return View(purchasedMovie);
         }
 
       
@@ -39,7 +40,28 @@ namespace MovieShopMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Favorite()
         {
-            return View();
+            //same as Purchase
+            var userId = _currentLogedInUser.UserId;
+            var favorMovie = await _userService.GetAllFavoritesForUser(userId);
+
+            return View(favorMovie);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddFavorite(int movieId)
+        {
+            //if (!_currentLogedInUser.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Login");
+            //}
+
+            var favoriteConfirm = await _userService.AddFavorite(movieId, _currentLogedInUser.UserId);
+            
+            //if (favoriteConfirm)
+            //{
+            //    return StatusCode(200);
+            //}
+            return LocalRedirect("~/");
         }
 
         [HttpGet]
@@ -53,16 +75,12 @@ namespace MovieShopMVC.Controllers
         {
             var userId = _currentLogedInUser.UserId;
             reviewModel.UserId = userId;
-            var addConfirm = await _userService.AddMovieReview(reviewModel);  
+            var addConfirm = await _userService.AddMovieReview(reviewModel);
 
 
-            return View("BuyMovie");
+            return StatusCode(200);//new HttpStatusCodeResult(200); //new EmptyResult();  return Ok status, empty page
         }
-        [HttpPost]
-        public async Task<IActionResult> AddFavorite()
-        {
-            return View();
-        }
+       
 
         [HttpGet]  //Important get or post!!
         public async Task<IActionResult> BuyMovie(int movieId)
@@ -77,10 +95,10 @@ namespace MovieShopMVC.Controllers
 
             if (purchaseConfirm)
             {
-               return View();
+                return View();
             }
             return RedirectToAction("Details");
-            
+
         }
 
     }

@@ -11,12 +11,12 @@ namespace ApplicationCore.Contract.Services
     {
         Task<bool> PurchaseMovie(int movieId, int userId);
         Task<bool> IsMoviePurchased(int movieId, int userId);
-        Task GetAllPurchasesForUser(int id);
+        Task<List<MovieCardModel>> GetAllPurchasesForUser(int userId);
         Task GetPurchasesDetails(int userId, int movieId);
-        Task AddFavorite(FavoriteRequestModel favoriteRequest);
+        Task<bool> AddFavorite(int movieId, int userId);
         Task RemoveFavorite(FavoriteRequestModel favoriteRequest);
         Task FavoriteExists(int id, int movieId);
-        Task GetAllFavoritesForUser(int id);
+        Task<List<MovieCardModel>> GetAllFavoritesForUser(int userId);
         Task<bool> AddMovieReview(ReviewModel reviewRequest);
         Task UpdateMovieReview(ReviewModel reviewRequest);
         Task DeleteMovieReview(int userId, int movieId);

@@ -43,9 +43,7 @@
 	  @*-------------------*@
          <form asp-action="AddReview" asp-controller="User">
 			 <div class="form-group">
-                <label for="MovieId" class="control-label"></label>   
 				<span>Review for : @Model.Title  </span>
-                <input type="radio" id="MovieId" name="MovieId" value="@Model.Id">
             </div>
 
   <div class="form-group">
@@ -70,7 +68,7 @@
 
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary"  name="MovieId" value="@Model.Id">Save</button>
         </div>
 
         </form>

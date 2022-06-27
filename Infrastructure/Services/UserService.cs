@@ -15,16 +15,30 @@ namespace Infrastructure.Services
         private readonly IMovieRepository _movieRepository; //DI
         private readonly IPurchaseRepository _purchaseRepository;
         private readonly IReviewRepository _reviewRepository;
-        public UserService(IMovieRepository movieRepository, IPurchaseRepository purchaseRepository, IReviewRepository reviewRepository)
+        private readonly IFavoriteRepository _favoriteRepository;
+
+        public UserService(IMovieRepository movieRepository, IPurchaseRepository purchaseRepository, IReviewRepository reviewRepository, IFavoriteRepository favoriteRepository)
         {
             _movieRepository = movieRepository;     //DI
             _purchaseRepository = purchaseRepository;
             _reviewRepository = reviewRepository;
+            _favoriteRepository = favoriteRepository;
         }
 
-        public Task AddFavorite(FavoriteRequestModel favoriteRequest)
+        public async Task<bool> AddFavorite(int movieId, int userId)
         {
-            throw new NotImplementedException();
+            //add new favorite into Favorite Table
+            var newFavorite = new Favorite
+            {
+                MovieId = movieId,
+                UserId = userId,
+            };
+            var savedFavorite = await _favoriteRepository.Add(newFavorite);
+            if (savedFavorite.Id > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
@@ -37,9 +51,19 @@ namespace Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task GetAllFavoritesForUser(int id)
+        public async Task<List<MovieCardModel>> GetAllFavoritesForUser(int userId)
         {
-            throw new NotImplementedException();
+            var movieFavo = await _favoriteRepository.GetMoviesByUserId(userId); //list of movie entity
+
+            var movieCards = new List<MovieCardModel>();
+            foreach (var movieEntity in movieFavo)
+            {
+                movieCards.Add(new MovieCardModel { Id = movieEntity.Id, PosterUrl = movieEntity.PosterUrl, Title = movieEntity.Title });
+
+            }
+
+            return movieCards;
+
         }
 
         public async Task<bool> AddMovieReview(ReviewModel reviewRequest)
@@ -76,9 +100,18 @@ namespace Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task GetAllPurchasesForUser(int id)
+        public async Task<List<MovieCardModel>> GetAllPurchasesForUser(int userId)
         {
-            throw new NotImplementedException();
+            var moviePurchased = await _purchaseRepository.GetMoviesByUserId(userId); //list of movie entity
+            
+            var movieCards = new List<MovieCardModel>();
+            foreach (var movieEntity in moviePurchased)
+            {
+                movieCards.Add(new MovieCardModel { Id = movieEntity.Id, PosterUrl = movieEntity.PosterUrl, Title = movieEntity.Title });
+
+            }
+
+            return movieCards;
         }
 
 

@@ -10,25 +10,22 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repository
 {
-    public class PurchaseRepository: Repository<Purchase>, IPurchaseRepository
+    public class FavoriteRepository : Repository<Favorite>, IFavoriteRepository
     {
-        public PurchaseRepository(MovieShopDbContext dbContaxt) : base(dbContaxt)
+        public FavoriteRepository(MovieShopDbContext dbContaxt) : base(dbContaxt)
         {
         }
-
         public async Task<List<Movie>> GetMoviesByUserId(int userId)
         {
             //get all movieId buy by this user
-            var moviesForUser =await _dbContext.purchases
+            var favorMoviesForUser = await _dbContext.Favorites
                 .Where(x => x.UserId == userId)
                 .Include(x => x.Movie)
                 .Select(x => new Movie { Id = x.MovieId, PosterUrl = x.Movie.PosterUrl, Title = x.Movie.Title })
                 .ToListAsync();
 
-            return moviesForUser;
+            return favorMoviesForUser;
 
         }
-
-
     }
 }
