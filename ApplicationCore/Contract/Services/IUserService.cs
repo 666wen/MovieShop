@@ -14,12 +14,12 @@ namespace ApplicationCore.Contract.Services
         Task<List<MovieCardModel>> GetAllPurchasesForUser(int userId);
         Task GetPurchasesDetails(int userId, int movieId);
         Task<bool> AddFavorite(int movieId, int userId);
-        Task RemoveFavorite(FavoriteRequestModel favoriteRequest);
-        Task FavoriteExists(int id, int movieId);
+        Task<bool> RemoveFavorite(int movieId, int userId);
+        Task<bool> FavoriteExists(int movieId, int userId);
         Task<List<MovieCardModel>> GetAllFavoritesForUser(int userId);
         Task<bool> AddMovieReview(ReviewModel reviewRequest);
         Task UpdateMovieReview(ReviewModel reviewRequest);
-        Task DeleteMovieReview(int userId, int movieId);
+        Task<bool> DeleteMovieReview(int userId, int movieId);
         Task GetAllReviewsByUser(int id);
     }
 }

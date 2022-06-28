@@ -14,8 +14,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		addViewTemplateByPackage_MAC.txt = addViewTemplateByPackage_MAC.txt
 		note2.txt = note2.txt
 		notes.txt = notes.txt
-		Note_Azure.txt = Note_Azure.txt
 		notes_Authentication.txt = notes_Authentication.txt
+		Note_Azure.txt = Note_Azure.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieShopAPI", "MovieShopAPI\MovieShopAPI.csproj", "{DC057ABB-6A8A-41C9-81EB-176C2415550F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5D42E185-CAE7-41A8-B4E8-AA0A1F1BE2DE} = {5D42E185-CAE7-41A8-B4E8-AA0A1F1BE2DE}
+		{6C206A5F-EA3D-42C9-B431-13589D19E90C} = {6C206A5F-EA3D-42C9-B431-13589D19E90C}
 	EndProjectSection
 EndProject
 Global
@@ -36,6 +42,10 @@ Global
 		{5D42E185-CAE7-41A8-B4E8-AA0A1F1BE2DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D42E185-CAE7-41A8-B4E8-AA0A1F1BE2DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D42E185-CAE7-41A8-B4E8-AA0A1F1BE2DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC057ABB-6A8A-41C9-81EB-176C2415550F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC057ABB-6A8A-41C9-81EB-176C2415550F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC057ABB-6A8A-41C9-81EB-176C2415550F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC057ABB-6A8A-41C9-81EB-176C2415550F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

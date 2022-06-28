@@ -11,11 +11,5 @@
                    @*asp-route-(name is the same as action method input parameter name)*@
                     <img src="@Model.PosterUrl" class="img-fluid" alt="@Model.Id" />
                 </a>
-                <hr />
-                <div class="text-end">
-                   
-                    <a class="btn btn-outline-secondary" asp-action="AddFavorite" asp-controller="User" asp-route-movieId="@Model.Id">Likes</a>
-
-                </div>
                
 </div>

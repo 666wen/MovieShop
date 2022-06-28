@@ -20,6 +20,8 @@
 			<span class="rounded bg-success text-white text-right">@Model.Ave_rating</span>
 			<p class="text-white">@Model.Overview</p>
         </div>
+
+
 		<div class="col-3">
 			@*This will fire another page*@
             @*<a asp-controller="User" asp-action="Review" target="_blank">
@@ -29,6 +31,7 @@
 				<div><button type="button" class="btn btn-white bg-white text-dark float-right" style="margin-top:2em; margin-left:4em; width:10em;">Buy $9.90</button></div>
 			</a>*@
 			@*using Bootstrap Button Trigger Modal*@
+
 		@*----------------popup button Modal for Review----------------------------*@
 <button type="button" class="btn  btn-outline-secondary text-white" data-bs-toggle="modal" data-bs-target="#ReviewModal" style="margin-top:2em; margin-left:4em; width:10em;">&rarrhk; Review</button>
 <!-- Modal -->
@@ -72,7 +75,6 @@
         </div>
 
         </form>
-@*--------------------------*@
       </div>
     </div>
   </div>
@@ -100,6 +102,12 @@
       </div>
     </div>
   </div>
+
+          <hr />
+          <div class="text-end">
+                <a class="btn btn-outline-white text-white" asp-action="AddFavorite" asp-controller="User" asp-route-movieId="@Model.Id">Likes</a>
+          </div>
+
 </div>
 
         </div>

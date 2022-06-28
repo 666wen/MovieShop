@@ -27,5 +27,19 @@ namespace Infrastructure.Repository
             return favorMoviesForUser;
 
         }
+
+
+        public async Task<Favorite> GetFavoriteById(int movieId, int userId)
+        {
+
+            var favorEntity = await _dbContext.Favorites  //dbContext table name
+                .FirstOrDefaultAsync(m => m.MovieId == movieId && m.UserId == userId); //using Async command
+            if (favorEntity == null)
+            {
+                return null;
+            }
+            return favorEntity;
+
+        }
     }
 }

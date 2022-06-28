@@ -76,8 +76,6 @@ namespace MovieShopMVC.Controllers
             var userId = _currentLogedInUser.UserId;
             reviewModel.UserId = userId;
             var addConfirm = await _userService.AddMovieReview(reviewModel);
-
-
             return View();//new HttpStatusCodeResult(200); //new EmptyResult();  return Ok status, empty page
         }
        

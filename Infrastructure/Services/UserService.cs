@@ -41,14 +41,26 @@ namespace Infrastructure.Services
             return false;
         }
 
-        public Task RemoveFavorite(FavoriteRequestModel favoriteRequest)
+        public async Task<bool> RemoveFavorite(int movieId, int userId)
         {
-            throw new NotImplementedException();
+            var delEntity = await _favoriteRepository.GetFavoriteById(movieId,userId);
+
+            var delFavor = await _favoriteRepository.Delete(delEntity); //delete entity
+            if (delEntity==null)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public Task FavoriteExists(int id, int movieId)
+        public async Task<bool> FavoriteExists(int movieId, int userId)
         {
-            throw new NotImplementedException();
+            var favorEntity = await _favoriteRepository.GetFavoriteById(movieId, userId);
+            if (favorEntity == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task<List<MovieCardModel>> GetAllFavoritesForUser(int userId)
@@ -84,9 +96,16 @@ namespace Infrastructure.Services
             return false;
         }
 
-        public Task DeleteMovieReview(int userId, int movieId)
+        public async Task<bool> DeleteMovieReview(int movieId, int userId)
         {
-            throw new NotImplementedException();
+            var delEntity = await _reviewRepository.GetReviewById(movieId,userId);
+
+            var delConfirm = await _reviewRepository.Delete(delEntity); //delete entity
+            if (delConfirm == null)
+            {
+                return false;
+            }
+            return true;
         }
 
         public Task GetAllReviewsByUser(int id)
