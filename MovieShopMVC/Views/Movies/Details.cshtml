@@ -102,13 +102,31 @@
       </div>
     </div>
   </div>
-
-          <hr />
-          <div class="text-end">
-                <a class="btn btn-outline-white text-white" asp-action="AddFavorite" asp-controller="User" asp-route-movieId="@Model.Id">Likes</a>
-          </div>
-
 </div>
+       @*----------------add likes-----------------*@
+	 @using MovieShopMVC.Services
+	 @using ApplicationCore.Contract.Services;
+     @inject ICurrentLogedInUser currentUser
+	 @inject IUserService userService
+	
+	 @{bool favorCheck=false;}
+	 @if (@currentUser.IsAuthenticated)
+		{
+			favorCheck = await userService.FavoriteExists(Model.Id, currentUser.UserId);
+		}
+	
+
+	@if(@currentUser.IsAuthenticated && favorCheck)
+	{
+		<div class="text-white text-center fs-2" style="margin-top:0.6em">&hearts;</div>
+    }
+	  else
+	  {<div class="text-center" style="margin-top:2em">
+           <a class="btn btn-outline-secondary text-white" asp-action="AddFavorite" asp-controller="User" asp-route-movieId="@Model.Id"> Likes </a>
+       </div>
+	  }
+
+      
 
         </div>
     </div>

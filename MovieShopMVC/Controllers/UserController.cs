@@ -57,11 +57,8 @@ namespace MovieShopMVC.Controllers
 
             var favoriteConfirm = await _userService.AddFavorite(movieId, _currentLogedInUser.UserId);
             
-            //if (favoriteConfirm)
-            //{
-            //    return StatusCode(200);
-            //}
-            return LocalRedirect("~/");
+           
+            return LocalRedirect($"~/Movies/Details?idWen={movieId}"); //return page need twice, then can back to homepage
         }
 
         [HttpGet]
@@ -83,10 +80,10 @@ namespace MovieShopMVC.Controllers
         [HttpGet]  //Important get or post!!
         public async Task<IActionResult> BuyMovie(int movieId)
         {
-            if (!_currentLogedInUser.IsAuthenticated)
-            {
-                return RedirectToAction("Login");
-            }
+            //if (!_currentLogedInUser.IsAuthenticated)
+            //{
+            //    return RedirectToAction("Login");
+            //}
 
             var purchaseConfirm= await _userService.PurchaseMovie(movieId, _currentLogedInUser.UserId);
             //return LocalRedirect("~/");
@@ -95,7 +92,7 @@ namespace MovieShopMVC.Controllers
             {
                 return View();
             }
-            return RedirectToAction("Details");
+            return RedirectToAction("Details"); //wrong???
 
         }
 

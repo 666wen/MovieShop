@@ -12,6 +12,7 @@ namespace MovieShopMVC.Controllers
             _movieService = movieService;
         }
 
+        [HttpGet]
         //show details of the movie
         public async Task<IActionResult> Details(int idWen)
         {
@@ -20,6 +21,10 @@ namespace MovieShopMVC.Controllers
             return View(movie);
         }
 
+
+
+
+        [HttpGet]
         public async Task<IActionResult> Genre(int id, int pageSize=30, int pageNumber=1)
         {
             //each time only fetch 30 movies of the picked genre

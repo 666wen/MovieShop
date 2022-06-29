@@ -14,9 +14,12 @@ namespace Infrastructure.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository; //DI
-        public MovieService(IMovieRepository movieRepository)
+        private readonly IFavoriteRepository _favoriteRepository;
+
+        public MovieService(IMovieRepository movieRepository, IFavoriteRepository favoriteRepository)
         {
             _movieRepository = movieRepository;     //DI
+            _favoriteRepository = favoriteRepository;
         }
 
 
@@ -98,6 +101,8 @@ namespace Infrastructure.Services
             return movie;
 
         }
+
+      
 
         public async Task<PagedResultSetModel<MovieCardModel>> GetMoviesByGenre(int genreId, int pageSize=30, int pageNumber=1)
         {
