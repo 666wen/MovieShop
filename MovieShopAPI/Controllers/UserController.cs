@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contract.Services;
 using ApplicationCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace MovieShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
       
@@ -36,6 +38,10 @@ namespace MovieShopAPI.Controllers
         [Route("purchases")]
         public async Task<IActionResult> Purchase(int userId)
         {
+            // we need to get the userId from the token, using HttpContext
+
+
+
             var purchasedMovie = await _userService.GetAllPurchasesForUser(userId);
             if (purchasedMovie == null)
             {
