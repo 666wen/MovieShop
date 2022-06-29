@@ -8,7 +8,10 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MovieShopAPI.Services;
 using System.Text;
+
+//using MovieShopAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +24,14 @@ builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IRepository<Genre>, Repository<Genre>>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
-//builder.Services.AddScoped<ICurrentLogedInUser, CurrentLogedInUser>(); //only MVC using this one.
+builder.Services.AddScoped<ICurrentLogedInUser, CurrentLogedInUser>(); //for authorization get token data.
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+
+//important!!! Or, the HttpContexAccessor can not be use! Inject HttpContext for IHttpContextAccessor interface
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -55,12 +61,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+// when you get a http request from client/browser
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+//app.UseMovieShopExceptionMiddleware();
 app.UseHttpsRedirection();
 
 // make sure you add Authentication Middleware

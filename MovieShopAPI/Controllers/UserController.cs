@@ -3,28 +3,31 @@ using ApplicationCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieShopAPI.Services;
 
 namespace MovieShopAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize]  //look into claim???
     public class UserController : ControllerBase
     {
-      
+        private readonly ICurrentLogedInUser _currentLogedInUser;
         private readonly IUserService _userService;
-        public UserController( IUserService userService)
+        public UserController( IUserService userService, ICurrentLogedInUser currentLogedInUser)
         {
             _userService = userService;
+            _currentLogedInUser = currentLogedInUser;
         }
 
         //------------------------------Movie----------------------------------
 
         [HttpGet]
         [Route("purchase-movie")]
-        public async Task<IActionResult> BuyMovie(int movieId, int userId)
+        public async Task<IActionResult> BuyMovie(int movieId)
         {
-           
+            // we need to get the userId from the token, using HttpContext
+            var userId = _currentLogedInUser.UserId;
             var purchaseConfirm = await _userService.PurchaseMovie(movieId, userId);
 
             if (purchaseConfirm)
@@ -36,12 +39,10 @@ namespace MovieShopAPI.Controllers
 
         [HttpGet]
         [Route("purchases")]
-        public async Task<IActionResult> Purchase(int userId)
+        public async Task<IActionResult> Purchase()
         {
             // we need to get the userId from the token, using HttpContext
-
-
-
+            var userId = _currentLogedInUser.UserId;
             var purchasedMovie = await _userService.GetAllPurchasesForUser(userId);
             if (purchasedMovie == null)
             {
@@ -54,8 +55,10 @@ namespace MovieShopAPI.Controllers
 
         [HttpGet]
         [Route("favorite")]
-        public async Task<IActionResult> AddFavorite(int movieId, int userId)
+        public async Task<IActionResult> AddFavorite(int movieId)
         {
+            // we need to get the userId from the token, using HttpContext
+            var userId = _currentLogedInUser.UserId;
 
             var favoriteConfirm = await _userService.AddFavorite(movieId, userId);
 
@@ -68,8 +71,10 @@ namespace MovieShopAPI.Controllers
 
         [HttpGet]
         [Route("favorites")]
-        public async Task<IActionResult> Favorite(int userId)
+        public async Task<IActionResult> Favorite()
         {
+            // we need to get the userId from the token, using HttpContext
+            var userId = _currentLogedInUser.UserId;
             var favorMovie = await _userService.GetAllFavoritesForUser(userId);
             if (favorMovie == null)
             {
@@ -80,8 +85,10 @@ namespace MovieShopAPI.Controllers
 
         [HttpDelete]
         [Route("un-favorite")]
-        public async Task<IActionResult> DelFavorite(int movieId, int userId)
+        public async Task<IActionResult> DelFavorite(int movieId)
         {
+            // we need to get the userId from the token, using HttpContext
+            var userId = _currentLogedInUser.UserId;
 
             var delFavor = await _userService.RemoveFavorite(movieId, userId);
 
@@ -94,8 +101,10 @@ namespace MovieShopAPI.Controllers
 
         [HttpGet] // not write swagger will show 500
         [Route("check-movie-favorite/{movieId}")]
-        public async Task<IActionResult> FavoriteExistCheck(int movieId, int userId)
+        public async Task<IActionResult> FavoriteExistCheck(int movieId)
         {
+            // we need to get the userId from the token, using HttpContext
+            var userId = _currentLogedInUser.UserId;
             var checkFavor =await  _userService.FavoriteExists(movieId, userId);
             if (!checkFavor)
             {
@@ -109,9 +118,11 @@ namespace MovieShopAPI.Controllers
 
         [HttpPost]
         [Route("add-review")]
-        public async Task<IActionResult> AddReview([FromBody] ReviewModel reviewModel, int userId)
+        public async Task<IActionResult> AddReview([FromBody] ReviewModel reviewModel)
         {
-      
+            // we need to get the userId from the token, using HttpContext
+            var userId = _currentLogedInUser.UserId;
+
             reviewModel.UserId = userId;
             var addConfirm = await _userService.AddMovieReview(reviewModel);
             if (addConfirm)
@@ -123,9 +134,10 @@ namespace MovieShopAPI.Controllers
 
         [HttpDelete]
         [Route("delete-review/{movieId:int}")]
-        public async Task<IActionResult> DelReview(int movieId, int userId)
+        public async Task<IActionResult> DelReview(int movieId)
         {
-
+            // we need to get the userId from the token, using HttpContext
+            var userId = _currentLogedInUser.UserId;
             var delReview = await _userService.DeleteMovieReview(movieId, userId);
 
             if (!delReview)
