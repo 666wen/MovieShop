@@ -17,7 +17,7 @@ namespace MovieShopAPI.Controllers
         [HttpGet] //important!!!!!!!!
         [Route("top-grossing")] //attribute routing
         //MVC URL http://localhost/movies/GetTopGrossingMovies traditional/conventional based routing
-        //API http://localhost/api/Controller/attribute
+        //API http://localhost/api/Controller/attribute-routing
         public async Task<IActionResult> GetTopGrossingMovies()
         {
 

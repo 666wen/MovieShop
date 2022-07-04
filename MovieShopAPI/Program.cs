@@ -8,6 +8,7 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MovieShopAPI.Middlewares;
 using MovieShopAPI.Services;
 using System.Text;
 
@@ -58,7 +59,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 
-var app = builder.Build();
+var app = builder.Build();  //app is webapplication. implement IApplicationBuilder
 
 // Configure the HTTP request pipeline.
 // when you get a http request from client/browser
@@ -67,6 +68,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//after builder, setting CROS policy, allow Angular APP to recive data
+app.UseCors(policy => {
+    //policy.AllowAnyOrigin()  not sercure
+    //just put Angular url string "http://localhost:4200/", no backend slash!!!!!!
+    //policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+    policy.WithOrigins(builder.Configuration["AngularURL"]).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+});
+
+
+app.UseMovieShopExceptionMiddleware(); //using customed middleware to handle exceptions.
 
 //app.UseMovieShopExceptionMiddleware();
 app.UseHttpsRedirection();

@@ -69,7 +69,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles();  //for css, html , script static files
 
 app.UseRouting();
 
