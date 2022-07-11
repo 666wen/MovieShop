@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contract.Repository;
 using ApplicationCore.Contract.Services;
+using ApplicationCore.Entities;
 using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
@@ -118,5 +119,7 @@ namespace Infrastructure.Services
             return new PagedResultSetModel<MovieCardModel>(pageNumber, movies.TotalRecords, pageSize, movieCards);
       
         }
+
+       
     }
 }

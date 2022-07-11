@@ -10,5 +10,7 @@ namespace ApplicationCore.Contract.Services
     public interface IGenreService
     {
         Task<IEnumerable<GenreModel>> GetAllGenres();
+        Task<bool> AddGenre(string genreName);
+       Task<bool> DeleteGenre(int genreId);
     }
 }

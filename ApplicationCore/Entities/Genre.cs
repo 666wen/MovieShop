@@ -16,8 +16,6 @@ namespace ApplicationCore.Entities
         [MaxLength(64)] //change db in data annotation way
         public string Name { get; set; }
 
-        
-
         public ICollection<MovieGenre> MoviesOfGenre { get; set; }
 
     }

@@ -14,9 +14,9 @@ namespace Infrastructure.Services
 
     {
         //DI generRepository is using Repository<genre> =>Irepository<genre>
-        private readonly IRepository<Genre> _genreRepository;
+        private readonly IGenreRepository _genreRepository;
 
-        public GenreService(IRepository<Genre> genreRepository)
+        public GenreService(IGenreRepository genreRepository)
         {
             _genreRepository = genreRepository;
         }
@@ -33,5 +33,33 @@ namespace Infrastructure.Services
             }
             return genresModel;
         }
+
+        public async Task<bool> AddGenre(string genreName)
+        {
+            var genreEntity = new Genre
+            {
+                Name = genreName,
+            };
+            var genreAdded = await _genreRepository.Add(genreEntity); //return entity
+            if (genreAdded.Id > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> DeleteGenre(int genreId)
+        {
+            var delEntity = await _genreRepository.GetGenreById(genreId);
+
+            var delConfirm = await _genreRepository.Delete(delEntity); //delete entity
+            if (delConfirm == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
     }
 }
