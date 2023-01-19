@@ -10,7 +10,7 @@ GCP
 
 Target: ASP.NET Core app to be on Server so that people can start using it.
 
-Windows Server -> IIs
+Windows Server -> IIS
 Linux Server -> Ngix
 
 DataCenter -> Physical Location: servers(Win/Linux), Costs, Security...
@@ -27,17 +27,19 @@ Azure Cognitive Service ->Face ID, ML
 Azure Dev Ops -> Development + Operations
 
 Company Process:
+.nET team
 QA Team
-Business Team
+Business Analyst Team
 Users
 
-.Net Team:  MVC developed first 3 pages -> check code in GitHub -> Aotomaticlly do:
+GOAL:
+.Net Team:  MVC developed first 3 pages in first two weeks->5 developers check code in GitHub -> Aotomaticlly do:
             1.Publish our app to Server (Azure App Service) http://qa.movieshop.com
             2.run Unit Test Cases
 
 To the above 2 goals, configure the Azure DevOps
 CI -> Continus Integration: take the code from GitHub, build code and run any unit test cases. Trigged everytime when new code checkin Github.
-     If failed: notify
+     If build failed or any test case fails: notify develop team
      If passed: go to CD
 
 CD -> Continus Delivery: it will take the passed build and deploy to Azure APP Service automatically.

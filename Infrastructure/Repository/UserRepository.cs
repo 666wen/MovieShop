@@ -15,6 +15,8 @@ namespace Infrastructure.Repository
         public UserRepository(MovieShopDbContext dbContaxt): base(dbContaxt)
         {
         }
+
+
         public Task<bool> CheckIfMoviePurchasedByUser(int userId, int movieId)
         {
             throw new NotImplementedException();

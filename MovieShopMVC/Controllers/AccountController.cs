@@ -27,7 +27,7 @@ namespace MovieShopMVC.Controllers
             {
                 //after login successfully, create a cookie, cookies are always sent from browzer automatically to server
                 //inside the cookie we store encrypted information (User claims) that Server can recognize and tell wether user
-                //is loged in or not. cookies are in request header??
+                //is loged in or not. cookies are in request header
                 //Cookie should have an expairation time, which depends on bussiness requirement.
 
                 //create claim
